@@ -44,7 +44,7 @@ public class hotelService {
         hotel.setSiteWeb(hotelDto.getSiteWeb());
         hotel.setTel(hotelDto.getTel());
 
-        System.out.println("debut:"+hotelDto.getDebutS());
+        System.out.println("Debut :"+hotelDto.getDebutS());
 
         if(hotelDto.getDebutS()!=null&&!hotelDto.getDebutS().trim().equals(""))
         hotel.setDebut(helper.convertStringToDate(hotelDto.getDebutS()));

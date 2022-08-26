@@ -79,7 +79,7 @@ public class personneService {
 
     private int getTypeDocumentInt(String libelle){
         int type=0;
-        if(libelle.equalsIgnoreCase("1"))
+        if(libelle.equalsIgnoreCase(" 1 "))
            type=1;
         else if(libelle.equalsIgnoreCase("2"))
             type=2;
