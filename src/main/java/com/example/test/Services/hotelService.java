@@ -43,9 +43,6 @@ public class hotelService {
         hotel.setRepresentant(hotelDto.getRepresentant());
         hotel.setSiteWeb(hotelDto.getSiteWeb());
         hotel.setTel(hotelDto.getTel());
-
-        System.out.println("Debut :"+hotelDto.getDebutS());
-
         if(hotelDto.getDebutS()!=null&&!hotelDto.getDebutS().trim().equals(""))
         hotel.setDebut(helper.convertStringToDate(hotelDto.getDebutS()));
         if(hotelDto.getFinS()!=null&&!hotelDto.getFinS().trim().equals(""))
@@ -70,6 +67,8 @@ public class hotelService {
         hotelModif.setEmail(hotelDto.getEmail());
         hotelModif.setSiteWeb(hotelDto.getSiteWeb());
         hotelModif.setRepresentant(hotelModif.getRepresentant());
+        hotelModif.setDebut(helper.convertStringToDate(hotelDto.getDebutS()));
+        hotelModif.setFin(helper.convertStringToDate(hotelDto.getFinS()));
 
         return convertEntityTHotelToDto(hotelRepository.save(hotelModif));
         
