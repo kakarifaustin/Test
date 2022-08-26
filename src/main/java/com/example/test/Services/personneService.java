@@ -81,11 +81,11 @@ public class personneService {
         int type=0;
         if(libelle.equalsIgnoreCase(" 1 "))
            type=1;
-        else if(libelle.equalsIgnoreCase("2"))
+        else if(libelle.equalsIgnoreCase(" 2 "))
             type=2;
-        else if(libelle.equalsIgnoreCase("3"))
+        else if(libelle.equalsIgnoreCase(" 3 "))
             type=3;
-        else if(libelle.equalsIgnoreCase("4"))
+        else if(libelle.equalsIgnoreCase(" 4 "))
             type=4;
         
         return type;
