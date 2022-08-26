@@ -32,7 +32,7 @@ hotelDto hotelDto2=hotelService.enregistrerHotel(hotelDto);
 }
 
 @PutMapping("/modifier/{id}")
-public ResponseEntity<?> updateHotel(@RequestBody hotelDto hotelDto,@PathVariable("id") Integer id){
+public ResponseEntity<?> updateHotel(@PathVariable("id") Integer id,@RequestBody hotelDto hotelDto){
 
     hotelDto hotelDto2=hotelService.updateHotel(hotelDto,id);
         return new ResponseEntity<>(new ResponseBody<>(true, Messages.success(), hotelDto2), HttpStatus.OK);
