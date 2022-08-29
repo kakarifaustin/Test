@@ -4,6 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.example.test.Entities.hotel;
 
-public interface hotelRepository extends JpaRepository<hotel,Integer>{
+public interface hotelRepository extends JpaRepository<hotel,Long>{
     
 }

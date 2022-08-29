@@ -1,5 +1,8 @@
 package com.example.test.Services;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -43,36 +46,44 @@ public class hotelService {
         hotel.setRepresentant(hotelDto.getRepresentant());
         hotel.setSiteWeb(hotelDto.getSiteWeb());
         hotel.setTel(hotelDto.getTel());
+        System.out.println("date String  convert::"+hotelDto.getDebutS());
         if(hotelDto.getDebutS()!=null&&!hotelDto.getDebutS().trim().equals(""))
         hotel.setDebut(helper.convertStringToDate(hotelDto.getDebutS()));
+
+        System.out.println("date convert::"+hotel.getDebut());
         if(hotelDto.getFinS()!=null&&!hotelDto.getFinS().trim().equals(""))
         hotel.setFin(helper.convertStringToDate(hotelDto.getFinS()));
         return hotel;
 
     }
 
-
-    public hotelDto enregistrerHotel(hotelDto hotelDto){
-
-      hotel hotel=convertDtoToEntity(hotelDto);
-
-      return convertEntityTHotelToDto(hotelRepository.save(hotel));
-
-    }
-
-    public hotelDto updateHotel(hotelDto hotelDto,Integer id){
+    public hotelDto updateHotel(hotelDto hotelDto,Long id){
         hotel hotelModif=hotelRepository.findById(id).get();
          hotelModif.setCode(hotelDto.getCode());
         hotelModif.setDesignation(hotelDto.getDesignation());
         hotelModif.setEmail(hotelDto.getEmail());
         hotelModif.setSiteWeb(hotelDto.getSiteWeb());
         hotelModif.setRepresentant(hotelModif.getRepresentant());
+       if(hotelDto.getDebutS()!="" && hotelDto.getDebutS()!=null)
         hotelModif.setDebut(helper.convertStringToDate(hotelDto.getDebutS()));
+        if(hotelDto.getFinS()!="" && hotelDto.getFinS()!=null)
         hotelModif.setFin(helper.convertStringToDate(hotelDto.getFinS()));
 
         return convertEntityTHotelToDto(hotelRepository.save(hotelModif));
-        
+            }
 
+            
+    public hotelDto enregistrerHotel(hotelDto hotelDto){
+
+        hotel hotel=convertDtoToEntity(hotelDto);
+  
+        return convertEntityTHotelToDto(hotelRepository.save(hotel));
+  
+      }
+
+
+      public List<hotelDto>afficherHoptel(){
+        return hotelRepository.findAll().stream().map(this::convertEntityTHotelToDto).collect(Collectors.toList());
     }
     
 }

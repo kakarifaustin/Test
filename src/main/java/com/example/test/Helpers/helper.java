@@ -1,6 +1,4 @@
 package com.example.test.Helpers;
-
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -8,23 +6,32 @@ import java.util.Date;
 public class helper {
 
 
-    public static String convertDateToString(Date date){
-        String dateS="";
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
-        dateS = dateFormat.format(date);
-
-    return dateS;
+    public static Date convertStringToDate(String dte) {
+        Date d=null;
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyy");
+         try {
+             d= formatter.parse(dte);
+        } catch (ParseException e) {
+            
+            e.printStackTrace();
+        }
+        
+         return d;
     }
 
-    public static Date convertStringToDate(String dateS){
-        Date date=null;
-       try {
-        date= new SimpleDateFormat("dd/MM/yyyy").parse(dateS);
-    } catch (ParseException e) {
-        e.printStackTrace();
+    public static String convertDateToString(java.util.Date date) {
+        
+    	SimpleDateFormat fmt = null;        
+        fmt = new SimpleDateFormat("dd/MM/yyyy");   
+
+        if(date!=null){
+        	String myDate = fmt.format(date);
+        	return myDate;
+        }
+        else
+        	return "";
+        
     }
-    
-    return date;
-    }
+
     
 }
