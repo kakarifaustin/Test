@@ -46,12 +46,9 @@ public class hotelService {
         hotel.setRepresentant(hotelDto.getRepresentant());
         hotel.setSiteWeb(hotelDto.getSiteWeb());
         hotel.setTel(hotelDto.getTel());
-        System.out.println("date String  convert::"+hotelDto.getDebutS());
-        if(hotelDto.getDebutS()!=null&&!hotelDto.getDebutS().trim().equals(""))
+            if(hotelDto.getDebutS()!=null&&!hotelDto.getDebutS().trim().equals(""))
         hotel.setDebut(helper.convertStringToDate(hotelDto.getDebutS()));
-
-        System.out.println("date convert::"+hotel.getDebut());
-        if(hotelDto.getFinS()!=null&&!hotelDto.getFinS().trim().equals(""))
+             if(hotelDto.getFinS()!=null&&!hotelDto.getFinS().trim().equals(""))
         hotel.setFin(helper.convertStringToDate(hotelDto.getFinS()));
         return hotel;
 
@@ -59,14 +56,14 @@ public class hotelService {
 
     public hotelDto updateHotel(hotelDto hotelDto,Long id){
         hotel hotelModif=hotelRepository.findById(id).get();
-         hotelModif.setCode(hotelDto.getCode());
+        hotelModif.setCode(hotelDto.getCode());
         hotelModif.setDesignation(hotelDto.getDesignation());
         hotelModif.setEmail(hotelDto.getEmail());
         hotelModif.setSiteWeb(hotelDto.getSiteWeb());
         hotelModif.setRepresentant(hotelModif.getRepresentant());
-       if(hotelDto.getDebutS()!="" && hotelDto.getDebutS()!=null)
+            if(hotelDto.getDebutS()!="" && hotelDto.getDebutS()!=null)
         hotelModif.setDebut(helper.convertStringToDate(hotelDto.getDebutS()));
-        if(hotelDto.getFinS()!="" && hotelDto.getFinS()!=null)
+            if(hotelDto.getFinS()!="" && hotelDto.getFinS()!=null)
         hotelModif.setFin(helper.convertStringToDate(hotelDto.getFinS()));
 
         return convertEntityTHotelToDto(hotelRepository.save(hotelModif));
@@ -74,16 +71,23 @@ public class hotelService {
 
             
     public hotelDto enregistrerHotel(hotelDto hotelDto){
-
         hotel hotel=convertDtoToEntity(hotelDto);
-  
-        return convertEntityTHotelToDto(hotelRepository.save(hotel));
-  
+         
+    return convertEntityTHotelToDto(hotelRepository.save(hotel));
       }
 
 
       public List<hotelDto>afficherHoptel(){
         return hotelRepository.findAll().stream().map(this::convertEntityTHotelToDto).collect(Collectors.toList());
+       }
+
+    public void supprimerHotel(Long idHotel){
+      boolean trouve=hotelRepository.existsById(idHotel);
+
+      if(!trouve)
+       throw new IllegalStateException("Le hotel avec id:"+idHotel+" n'existe pas");
+       else
+       hotelRepository.deleteById(idHotel);
     }
     
 }

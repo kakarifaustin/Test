@@ -8,7 +8,7 @@ public class helper {
 
     public static Date convertStringToDate(String dte) {
         Date d=null;
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyy");
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
          try {
              d= formatter.parse(dte);
         } catch (ParseException e) {
