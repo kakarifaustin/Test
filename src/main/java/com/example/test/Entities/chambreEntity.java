@@ -1,54 +1,41 @@
 package com.example.test.Entities;
 
 import java.time.LocalDate;
+import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import lombok.Data;
 
 @Entity
-public class chambreEntity {
+@Data
+@Table(name="tbl_chambre")
+public class ChambreEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private String libelle;
-    private Long idHotel; 
+     @Column(nullable = false)
     private LocalDate debut;
+     @Column(nullable = false,length = 45)
+    private String libelle;
+     @Column(nullable = false,length = 10)
+    private Long hotel_id; 
     private LocalDate fin;
-   
-   
-    public long getId() {
-        return id;
-    }
-    public void setId(long id) {
-        this.id = id;
-    }
-    public String getLibelle() {
-        return libelle;
-    }
-    public void setLibelle(String libelle) {
-        this.libelle = libelle;
-    }
-    public Long getIdHotel() {
-        return idHotel;
-    }
-    public void setIdHotel(Long idHotel) {
-        this.idHotel = idHotel;
-    }
-    public LocalDate getDebut() {
-        return debut;
-    }
-    public void setDebut(LocalDate debut) {
-        this.debut = debut;
-    }
-    public LocalDate getFin() {
-        return fin;
-    }
-    public void setFin(LocalDate fin) {
-        this.fin = fin;
-    }
 
-    
-    
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "hotel_id",referencedColumnName = "id",insertable = false,updatable = false)
+    private Hotel hotelEntity;
+
+
+    @OneToMany(mappedBy = "chambreEntity")
+    private List<ChambreClient>listeChambreClients;
 }

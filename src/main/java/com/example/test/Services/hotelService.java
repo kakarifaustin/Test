@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.test.Dto.hotelDto;
-import com.example.test.Entities.hotel;
+import com.example.test.Entities.Hotel;
 import com.example.test.Helpers.helper;
 import com.example.test.repositories.hotelRepository;
 
@@ -19,7 +19,7 @@ public class hotelService {
 
 
 
-    private hotelDto convertEntityTHotelToDto(hotel hotel){
+    private hotelDto convertEntityTHotelToDto(Hotel hotel){
 
         hotelDto hotelDto=new hotelDto();
         hotelDto.setCode(hotel.getCode());
@@ -37,9 +37,9 @@ public class hotelService {
     }
 
 
-    private hotel convertDtoToEntity(hotelDto hotelDto){
+    private Hotel convertDtoToEntity(hotelDto hotelDto){
 
-        hotel hotel=new hotel();
+        Hotel hotel=new Hotel();
         hotel.setCode(hotelDto.getCode());
         hotel.setDesignation(hotelDto.getDesignation());
         hotel.setEmail(hotelDto.getEmail());
@@ -55,7 +55,7 @@ public class hotelService {
     }
 
     public hotelDto updateHotel(hotelDto hotelDto,Long id){
-        hotel hotelModif=hotelRepository.findById(id).get();
+        Hotel hotelModif=hotelRepository.findById(id).get();
         hotelModif.setCode(hotelDto.getCode());
         hotelModif.setDesignation(hotelDto.getDesignation());
         hotelModif.setEmail(hotelDto.getEmail());
@@ -71,7 +71,7 @@ public class hotelService {
 
             
     public hotelDto enregistrerHotel(hotelDto hotelDto){
-        hotel hotel=convertDtoToEntity(hotelDto);
+        Hotel hotel=convertDtoToEntity(hotelDto);
          
     return convertEntityTHotelToDto(hotelRepository.save(hotel));
       }
@@ -86,7 +86,6 @@ public class hotelService {
 
       if(!trouve)
        throw new IllegalStateException("Le hotel avec id:"+idHotel+" n'existe pas");
-       else
        hotelRepository.deleteById(idHotel);
     }
     

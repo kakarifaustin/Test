@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 
 import com.example.test.Dto.personneDto;
-import com.example.test.Entities.personneEntity;
+import com.example.test.Entities.PersonneEntity;
 import com.example.test.repositories.personneRespository;
 
 @Service
@@ -15,8 +15,8 @@ public class personneService {
     @Autowired
    private personneRespository personneRespository;
 
-    private personneEntity convertDtoToEntity(personneDto personneDto){
-        personneEntity personne=new personneEntity();
+    private PersonneEntity convertDtoToEntity(personneDto personneDto){
+        PersonneEntity personne=new PersonneEntity();
         personne.setNom(personneDto.getNom());
         personne.setPrenom(personneDto.getPrenom());
         personne.setDateNaissance(personneDto.getDateNaissance());
@@ -29,7 +29,7 @@ public class personneService {
         return personne;
     }
 
-    private personneDto convertEntityToDto(personneEntity personneEntity){
+    private personneDto convertEntityToDto(PersonneEntity personneEntity){
         personneDto personneDto=new personneDto();
         personneDto.setNom(personneEntity.getNom());
         personneDto.setPrenom(personneEntity.getPrenom());
@@ -106,7 +106,7 @@ public class personneService {
 
     public personneDto enregistrerPersonne(personneDto personneDto){
        
-        personneEntity personneEntity=convertDtoToEntity(personneDto);
+        PersonneEntity personneEntity=convertDtoToEntity(personneDto);
         
         return convertEntityToDto(personneRespository.save(personneEntity));
     }
@@ -117,7 +117,7 @@ public class personneService {
 
     public personneDto modifierPersonne(personneDto personneDto,Long id){
 
-        personneEntity per=personneRespository.findById(id).get();
+        PersonneEntity per=personneRespository.findById(id).get();
         
         per.setNom(personneDto.getNom());
         per.setPrenom(personneDto.getPrenom());
