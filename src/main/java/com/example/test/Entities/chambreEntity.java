@@ -1,6 +1,7 @@
 package com.example.test.Entities;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -13,6 +14,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 
 @Entity
@@ -32,10 +36,11 @@ public class ChambreEntity {
 
 
     @ManyToOne(fetch = FetchType.EAGER)
+    @JsonIgnore
     @JoinColumn(name = "hotel_id",referencedColumnName = "id",insertable = false,updatable = false)
     private Hotel hotelEntity;
 
 
     @OneToMany(mappedBy = "chambreEntity")
-    private List<ChambreClient>listeChambreClients;
+    private List<ChambreClient>listeChambreClients= new ArrayList<>();
 }

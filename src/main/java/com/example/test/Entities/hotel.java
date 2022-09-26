@@ -31,14 +31,15 @@ public class Hotel {
     private String designation;
     private String representant;
     private String email;
-    @Column(nullable = false)
+    @Column(nullable = false,unique = true)
     private String tel;
     private String siteWeb;
     @Column(nullable = false)
     private Date debut;
+    @Column(nullable = false)
     private Date fin;
 
 
     @OneToMany(mappedBy = "hotelEntity")
-    private List<ChambreEntity>listChambres=new ArrayList<>();
+    private List<ChambreEntity>listChambres;
 }
