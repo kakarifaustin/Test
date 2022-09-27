@@ -1,5 +1,4 @@
 package com.example.test.Entities;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -25,7 +24,7 @@ public class Hotel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false,length = 10)
+    @Column(nullable = false,length = 10,unique = false)
     private String code;
     @Column(nullable = false,length = 100)
     private String designation;
@@ -36,7 +35,7 @@ public class Hotel {
     private String siteWeb;
     @Column(nullable = false)
     private Date debut;
-    @Column(nullable = false)
+    @Column(nullable = true)
     private Date fin;
 
 

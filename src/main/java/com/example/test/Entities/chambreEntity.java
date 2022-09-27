@@ -1,7 +1,6 @@
 package com.example.test.Entities;
-
-import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -27,12 +26,13 @@ public class ChambreEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
      @Column(nullable = false)
-    private LocalDate debut;
+    private Date debut;
      @Column(nullable = false,length = 45)
     private String libelle;
      @Column(nullable = false,length = 10)
     private Long hotel_id; 
-    private LocalDate fin;
+
+    private Date fin;
 
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -43,4 +43,7 @@ public class ChambreEntity {
 
     @OneToMany(mappedBy = "chambreEntity")
     private List<ChambreClient>listeChambreClients= new ArrayList<>();
+
+    @OneToMany(mappedBy = "chambreEntity")
+    private List<CategorieChambreEntity>listeCategorieChambres=new ArrayList<>();
 }

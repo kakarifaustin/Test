@@ -63,7 +63,9 @@ public ResponseEntity<?> updateHotel(@PathVariable("id") Long id,@RequestBody ho
 
     @GetMapping("/afficher")
     public ResponseEntity<?>afficherHotel(){
-        List<hotelDto>listHotels= hotelService.afficherHoptel();
+        List<hotelDto>listHotels= hotelService.afficherHotel();
+
+        System.out.println("Liste hotel:");
 
         return new ResponseEntity<>(new ResponseBody<>(true, Messages.success(), listHotels), HttpStatus.OK);        
     }

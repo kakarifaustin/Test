@@ -1,11 +1,12 @@
 package com.example.test.Services;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.test.ConvertDTO.HotelConvertDTO;
 import com.example.test.Dto.hotelDto;
 import com.example.test.Entities.Hotel;
 import com.example.test.Helpers.helper;
@@ -16,43 +17,6 @@ public class hotelService {
 
     @Autowired
     private hotelRepository hotelRepository;
-
-
-
-    private hotelDto convertEntityTHotelToDto(Hotel hotel){
-
-        hotelDto hotelDto=new hotelDto();
-        hotelDto.setCode(hotel.getCode());
-        hotelDto.setDesignation(hotel.getDesignation());
-        hotelDto.setEmail(hotel.getEmail());
-        hotelDto.setRepresentant(hotel.getRepresentant());
-        hotelDto.setSiteWeb(hotel.getSiteWeb());
-        hotelDto.setTel(hotel.getTel());
-        if(hotel.getDebut()!=null)
-        hotelDto.setDebutS(helper.convertDateToString(hotel.getDebut()));
-        if(hotel.getFin()!=null)
-        hotelDto.setFinS(helper.convertDateToString(hotel.getFin()));
-        return hotelDto;
-
-    }
-
-
-    private Hotel convertDtoToEntity(hotelDto hotelDto){
-
-        Hotel hotel=new Hotel();
-        hotel.setCode(hotelDto.getCode());
-        hotel.setDesignation(hotelDto.getDesignation());
-        hotel.setEmail(hotelDto.getEmail());
-        hotel.setRepresentant(hotelDto.getRepresentant());
-        hotel.setSiteWeb(hotelDto.getSiteWeb());
-        hotel.setTel(hotelDto.getTel());
-            if(hotelDto.getDebutS()!=null&&!hotelDto.getDebutS().trim().equals(""))
-        hotel.setDebut(helper.convertStringToDate(hotelDto.getDebutS()));
-             if(hotelDto.getFinS()!=null&&!hotelDto.getFinS().trim().equals(""))
-        hotel.setFin(helper.convertStringToDate(hotelDto.getFinS()));
-        return hotel;
-
-    }
 
     public hotelDto updateHotel(hotelDto hotelDto,Long id){
         Hotel hotelModif=hotelRepository.findById(id).get();
@@ -66,19 +30,26 @@ public class hotelService {
             if(hotelDto.getFinS()!="" && hotelDto.getFinS()!=null)
         hotelModif.setFin(helper.convertStringToDate(hotelDto.getFinS()));
 
-        return convertEntityTHotelToDto(hotelRepository.save(hotelModif));
+        return HotelConvertDTO.getInstance().convertEntityTHotelToDto(hotelRepository.save(hotelModif));
             }
 
             
     public hotelDto enregistrerHotel(hotelDto hotelDto){
-        Hotel hotel=convertDtoToEntity(hotelDto);
+        Hotel hotel=HotelConvertDTO.getInstance().convertDtoToEntity(hotelDto);
          
-    return convertEntityTHotelToDto(hotelRepository.save(hotel));
+    return HotelConvertDTO.getInstance().convertEntityTHotelToDto(hotelRepository.save(hotel));
       }
 
 
-      public List<hotelDto>afficherHoptel(){
-        return hotelRepository.findAll().stream().map(this::convertEntityTHotelToDto).collect(Collectors.toList());
+      public List<hotelDto>afficherHotel(){
+        List<Hotel>listHotels=hotelRepository.findAll();
+        List<hotelDto>listHotelDtos=new ArrayList<>();
+
+        for(Hotel hotel:listHotels){
+            listHotelDtos.add(HotelConvertDTO.getInstance().convertEntityTHotelToDto(hotel));
+        }
+
+        return listHotelDtos;
        }
 
     public void supprimerHotel(Long idHotel){
