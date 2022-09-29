@@ -47,5 +47,14 @@ public class ChambreService {
         
 
     }
+
+    public void supprimerChambre(Long id){
+        boolean exist=chambreRepository.existsById(id);
+        if(!exist)
+        throw new IllegalStateException("Le hotel avec id:"+id+" n'existe pas");
+        else
+        chambreRepository.deleteById(id);
+
+    }
     
 }

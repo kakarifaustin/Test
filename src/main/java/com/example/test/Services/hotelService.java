@@ -18,13 +18,22 @@ public class hotelService {
     @Autowired
     private hotelRepository hotelRepository;
 
+   
+            
+    public hotelDto enregistrerHotel(hotelDto hotelDto){
+        Hotel hotel=HotelConvertDTO.getInstance().convertDtoToEntity(hotelDto);
+         
+    return HotelConvertDTO.getInstance().convertEntityTHotelToDto(hotelRepository.save(hotel));
+      }
+
     public hotelDto updateHotel(hotelDto hotelDto,Long id){
         Hotel hotelModif=hotelRepository.findById(id).get();
         hotelModif.setCode(hotelDto.getCode());
         hotelModif.setDesignation(hotelDto.getDesignation());
         hotelModif.setEmail(hotelDto.getEmail());
         hotelModif.setSiteWeb(hotelDto.getSiteWeb());
-        hotelModif.setRepresentant(hotelModif.getRepresentant());
+        hotelModif.setRepresentant(hotelDto.getRepresentant());
+        hotelModif.setTel(hotelDto.getTel());
             if(hotelDto.getDebutS()!="" && hotelDto.getDebutS()!=null)
         hotelModif.setDebut(helper.convertStringToDate(hotelDto.getDebutS()));
             if(hotelDto.getFinS()!="" && hotelDto.getFinS()!=null)
@@ -33,21 +42,13 @@ public class hotelService {
         return HotelConvertDTO.getInstance().convertEntityTHotelToDto(hotelRepository.save(hotelModif));
             }
 
-            
-    public hotelDto enregistrerHotel(hotelDto hotelDto){
-        Hotel hotel=HotelConvertDTO.getInstance().convertDtoToEntity(hotelDto);
-         
-    return HotelConvertDTO.getInstance().convertEntityTHotelToDto(hotelRepository.save(hotel));
-      }
-
-
-      public List<hotelDto>afficherHotel(){
+    public List<hotelDto>afficherHotel(){
         List<Hotel>listHotels=hotelRepository.findAll();
         List<hotelDto>listHotelDtos=new ArrayList<>();
 
         for(Hotel hotel:listHotels){
             listHotelDtos.add(HotelConvertDTO.getInstance().convertEntityTHotelToDto(hotel));
-        }
+        } 
 
         return listHotelDtos;
        }
@@ -55,9 +56,11 @@ public class hotelService {
     public void supprimerHotel(Long idHotel){
       boolean trouve=hotelRepository.existsById(idHotel);
 
-      if(!trouve)
+      if(trouve)
+        hotelRepository.deleteById(idHotel);
+      else
        throw new IllegalStateException("Le hotel avec id:"+idHotel+" n'existe pas");
-       hotelRepository.deleteById(idHotel);
+             
     }
     
 }

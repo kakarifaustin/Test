@@ -60,19 +60,22 @@ public ResponseEntity<?> updateHotel(@PathVariable("id") Long id,@RequestBody ho
     
     }   
 
-
-    @GetMapping("/afficher")
+@GetMapping("/afficher")
     public ResponseEntity<?>afficherHotel(){
         List<hotelDto>listHotels= hotelService.afficherHotel();
-
-        System.out.println("Liste hotel:");
 
         return new ResponseEntity<>(new ResponseBody<>(true, Messages.success(), listHotels), HttpStatus.OK);        
     }
 
-    @DeleteMapping("/delete/{id}")
+@DeleteMapping("/supprimer/{id}")
     public ResponseEntity<?>supprimerHotel(@PathVariable("id") Long idHoteL){
-
-        return new ResponseEntity<>(new ResponseBody<>(true, Messages.success()), HttpStatus.OK);
+        try {
+            hotelService.supprimerHotel(idHoteL);
+            return new ResponseEntity<>(new ResponseBody<>(true, Messages.success()), HttpStatus.OK);
+            
+        } catch (Exception e) {
+            return new ResponseEntity<>(new ResponseBody<>(false,e.getMessage()), HttpStatus.BAD_REQUEST);
+        }
+        
     }
 }
