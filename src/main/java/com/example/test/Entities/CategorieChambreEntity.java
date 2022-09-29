@@ -1,6 +1,6 @@
 package com.example.test.Entities;
 
-import java.security.Timestamp;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -29,8 +29,8 @@ public class CategorieChambreEntity {
         @Column(nullable = false,length = 10)
     private Integer chambre_id;
         @Column(nullable = false)
-    private Timestamp debut;
-    private Timestamp fin;
+    private Date debut;
+    private Date fin;
 
 
     @ManyToOne(fetch = FetchType.EAGER)

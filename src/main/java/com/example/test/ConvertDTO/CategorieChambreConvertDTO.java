@@ -15,8 +15,8 @@ public class CategorieChambreConvertDTO {
         catDTO.setChambreDTO(ChambreConvertDTO.getInstance().convertEntityToDto(categorieChambreEntity.getChambreEntity()));
         catDTO.setChambre_id(categorieChambreEntity.getChambre_id());
         if(categorieChambreEntity.getDebut()!=null)
-        catDTO.setDebutS(helper.convertDateTimeToString(categorieChambreEntity.getDebut()));
-        catDTO.setFinS(helper.convertDateTimeToString(categorieChambreEntity.getFin()));
+        catDTO.setDebutS(helper.convertDateToString(categorieChambreEntity.getDebut()));
+        catDTO.setFinS(helper.convertDateToString(categorieChambreEntity.getFin()));
         catDTO.setTypeS(helper.getTypeS(categorieChambreEntity.getType()));
         catDTO.setPrix(categorieChambreEntity.getPrix()+"");
         
@@ -27,8 +27,8 @@ public class CategorieChambreConvertDTO {
             CategorieChambreEntity cat=new CategorieChambreEntity();
             cat.setChambre_id(categorieChambreDTO.getChambre_id());
             if(categorieChambreDTO.getDebutS()!=null)
-            // cat.setDebut(helper.convertStringToDateTime(categorieChambreDTO.getDebutS()));
-            // cat.setFin(helper.convertStringToDateTime(categorieChambreDTO.getFinS()));
+            cat.setDebut(helper.convertStringToDate(categorieChambreDTO.getDebutS()));
+            cat.setFin(helper.convertStringToDate(categorieChambreDTO.getFinS()));
             cat.setType(helper.getTypeInt(categorieChambreDTO.getTypeS()));
             // cat.setPrix(categorieChambreDTO.getPrix());
             

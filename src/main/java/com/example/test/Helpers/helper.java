@@ -1,5 +1,4 @@
 package com.example.test.Helpers;
-import java.security.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -32,33 +31,6 @@ public class helper {
         else
         	return "";
         
-    }
-
-    public static String convertDateTimeToString(Timestamp date) {
-        
-    	SimpleDateFormat fmt = null;        
-        fmt = new SimpleDateFormat("dd/MM/yyyy HH:mm");   
-
-        if(date!=null){
-        	String myDate = fmt.format(date);
-        	return myDate;
-        }
-        else
-        	return "";
-        
-    }
-
-    public static Date convertStringToDateTime(String dte) {
-        Date d=null;
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-         try {
-             d= formatter.parse(dte);
-        } catch (ParseException e) {
-            
-            e.printStackTrace();
-        }
-        
-         return d;
     }
 
     public static String getTypeS(int t){
