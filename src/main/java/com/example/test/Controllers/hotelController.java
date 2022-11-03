@@ -30,32 +30,20 @@ public class hotelController {
 
 @PostMapping("/ajouter")
 public ResponseEntity<?> saveHotel(@RequestBody hotelDto hotelDto){
-    if(hotelDto.getCode()==null||hotelDto.getCode().trim().equals(""))
-        return new ResponseEntity<>(new ResponseBody<>(false,"Le code est obligatoire"), HttpStatus.NOT_FOUND);
-    else if(hotelDto.getDesignation()==null || hotelDto.getDesignation().trim().equals(""))
-        return new ResponseEntity<>(new ResponseBody<>(false,"La désignation est obligatoire"), HttpStatus.NOT_FOUND);
-    else if(hotelDto.getRepresentant()==null || hotelDto.getRepresentant().trim().equals(""))
-        return new ResponseEntity<>(new ResponseBody<>(false,"Le représentant est obligatoire"), HttpStatus.NOT_FOUND);
-    else if(hotelDto.getTel()==null || hotelDto.getTel().trim().equals(""))
-        return new ResponseEntity<>(new ResponseBody<>(false,"Le téléphone est obligatoire"), HttpStatus.NOT_FOUND);
-    else if(hotelDto.getDebutS()==null || hotelDto.getDebutS().trim().equals(""))
-        return new ResponseEntity<>(new ResponseBody<>(false,"La date début est obligatoire"), HttpStatus.NOT_FOUND);
-    else{
-        try {
-            hotelDto hotelDto2=hotelService.enregistrerHotel(hotelDto);
-            return new ResponseEntity<>(new ResponseBody<>(true, Messages.success(), hotelDto2), HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(new ResponseBody<>(false,e.getMessage()), HttpStatus.BAD_REQUEST);
-        }
        
-    }
- 
+  hotelDto hotelDto2=hotelService.enregistrerHotel(hotelDto);
+  if(hotelDto2==null) throw new ImpossibleAjouterException("Echec de l'opération");
+    return new ResponseEntity<>(new ResponseBody<>(true, Messages.success(), hotelDto2), HttpStatus.OK);
+   
 }
 
 @PutMapping("/modifier/{id}")
 public ResponseEntity<?> updateHotel(@PathVariable("id") Long id,@RequestBody hotelDto hotelDto){
 
     hotelDto hotelDto2=hotelService.updateHotel(hotelDto,id);
+
+    if(hotelDto2==null) throw new ElementNotFoundException("pbm")
+
         return new ResponseEntity<>(new ResponseBody<>(true, Messages.success(), hotelDto2), HttpStatus.OK);
     
     }   
