@@ -43,8 +43,10 @@ public ResponseEntity<?> updateHotel(@PathVariable("id") Long id,@RequestBody ho
     hotelDto hotelDto2=hotelService.updateHotel(hotelDto,id);
 
     if(hotelDto2==null) throw new ElementNotFoundException("pbm")
+        {
 
         return new ResponseEntity<>(new ResponseBody<>(true, Messages.success(), hotelDto2), HttpStatus.OK);
+}
     
     }   
 
